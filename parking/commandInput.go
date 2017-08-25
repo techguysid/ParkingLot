@@ -53,7 +53,19 @@ func StartCommandOperation()  {
     case "registration_numbers_for_cars_with_Colour":
       for _, c := range cars {
           if(c.Colour==args[1]){
-            fmt.Printf(c.Car_No,"\t")
+            fmt.Println(c.Car_No)
+          }
+      }
+    case "slot_numbers_for_cars_with_colour":
+      for _, c := range cars {
+          if(c.Colour==args[1]){
+            fmt.Println(c.Slot_No)
+          }
+      }
+    case "slot_number_for_registration_number":
+      for _, c := range cars {
+          if(c.Car_No==args[1]){
+            fmt.Println(c.Slot_No)
           }
       }
     default:
