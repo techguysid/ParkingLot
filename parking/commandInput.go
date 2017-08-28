@@ -21,11 +21,31 @@ func StartCommandOperation()  {
     switch args[0] {
     case "create_parking_lot":
       total_slots,_= strconv.Atoi(args[1])
-      fmt.Println(total_slots)
+      //fmt.Println(total_slots)
     case "park":
-      if current_empty_slot>total_slots{
+      if len(cars)==total_slots{
         fmt.Println("Sorry, parking lot is full")
       }else{
+      i:=1
+      if Is_Slot_Empty {
+
+      for i <= total_slots {
+          if i!=cars[i-1].Slot_No{
+              c := Car{
+                  Slot_No:i,
+                  Car_No:  args[1],
+                  Colour: args[2],
+              }
+              cars = append(cars[:i-1], append([]Car{c}, cars[i-1:]...)...)
+              fmt.Println("Allocated slot number:",i);
+              Is_Slot_Empty=!Is_Slot_Empty
+              break
+          }
+          i++;
+        }
+
+      }else{
+      //a = append(a[:i], append([]T{x}, a[i:]...)...)
       c := Car{
           Slot_No:current_empty_slot,
           Car_No:  args[1],
@@ -35,12 +55,15 @@ func StartCommandOperation()  {
       fmt.Println("Allocated slot number:",current_empty_slot);
       current_empty_slot++;
     }
+    }
     case "leave":
       i,_:=strconv.Atoi(args[1])
       j:=0;
       for _, c := range cars {
           if c.Slot_No==i {
             cars = append(cars[:j], cars[j+1:]...)
+            Is_Slot_Empty=!Is_Slot_Empty
+            fmt.Println("Slot No ",i," is free")
           }
           j++;
       }
@@ -50,18 +73,20 @@ func StartCommandOperation()  {
       for _, c := range cars {
           fmt.Println(c.Slot_No,"\t\t", c.Car_No,"\t\t",c.Colour)
       }
-    case "registration_numbers_for_cars_with_Colour":
+    case "registration_numbers_for_cars_with_colour":
       for _, c := range cars {
           if(c.Colour==args[1]){
-            fmt.Println(c.Car_No)
+            fmt.Printf("%s\t",c.Car_No)
           }
       }
+      fmt.Printf("\n")
     case "slot_numbers_for_cars_with_colour":
       for _, c := range cars {
           if(c.Colour==args[1]){
-            fmt.Println(c.Slot_No)
+            fmt.Printf("%s\t",strconv.Itoa(c.Slot_No))
           }
       }
+      fmt.Printf("\n")
     case "slot_number_for_registration_number":
       for _, c := range cars {
           if(c.Car_No==args[1]){
